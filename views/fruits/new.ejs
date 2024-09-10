@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Fruit</title>
+  </head>
+  <body>
+    <h1>Create a New Fruit!</h1>
+    <!-- config a html form -> two attributes (action-> endpoint string) (method-> POSt) -->
+    <form action="/fruits" method="POST">
+      <!-- system of related html tags/elements -->
+      <!-- input > name + type (attributes) -->
+      <div>
+        <label for="name">Fruit Name:</label>
+        <input type="text" name="name" id="name" />
+      </div>
+      <div>
+        <label for="isReadyToEat">Is Ready to Eat:</label>
+        <!-- aria - accessibility standard -->
+        <input type="checkbox" name="isReadyToEat" id="isReadyToEat" />
+      </div>
+      <!-- submit button will trigger the form request -> send data (name attribute -> { } -> endpoint) -->
+      <button type="submit">Add Fruits</button>
+    </form>
+  </body>
+</html>
