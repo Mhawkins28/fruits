@@ -30,7 +30,7 @@ const Fruit = require("./models/fruit");
 // configure view engine
 app.set("view engine", "ejs");
 
-// Middleware - app.use() - processes request before any routes are accessed
+// Middleware 
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(morgan("dev"));
