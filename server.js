@@ -44,15 +44,14 @@ app.get("/", (req, res) => {
 // New Fruit Route - GET - /fruits/new
 // ROLE -> render a form (new.ejs)
 app.get("/fruits/new", (req, res) => {
-  // express assumes all views (templates) live inside of localhost:3000/views/fruits/new so no leading slash is required for a render path argument.
   res.render("fruits/new");
 });
 
 // Show Route
 // ROLE -> display a single instance of a resource (fruit) from the database
-app.get("/fruits/:fruitId", async (req, res) => {
+app.get("/fruits/:id", async (req, res) => {
   try {
-    const foundFruit = await Fruit.findById(req.params.fruitId);
+    const foundFruit = await Fruit.findById(req.params.id);
     res.render("fruits/show", { fruit: foundFruit });
   } catch (err) {
     console.log(err);
@@ -126,6 +125,9 @@ express.urlencoded() - REQUIRED - decodes the form data sent from the client -> 
 morgan - OPTIONAL outputs well formatted request info to node terminal ->  GET /fruits/66e364f089decdddff8012e3 304 41.161 ms o
  
 res.redirect() - closes open request and tells the browser to navigate to a new location (makes a GET request)
+
+res.render( resource-dir/template-name, { ...data } ) - sends as dynamically rendered HTML page to the browser, can populate HTML with 'context' data provided when called. 
+    note: express assumes all views (templates) live inside of localhost:3000/views/fruits/new so no leading slash is required for a render path argument.
 
 Summary of MEN stack build steps:  
     Building a home page:
