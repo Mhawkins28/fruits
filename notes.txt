@@ -1,0 +1,51 @@
+Development steps we took to build the app we have right now
+
+// App SETUP and CREATE route build steps (summarized)
+1. Create entrypoint file -> initialize the npm package -> package.json
+2. Setup out boilerplate (server.js) + installed express dependencies
+3. Created a home page / landing page -> express route + landing page template 
+4. mongoose -> installed imported mongoose -> to create a mongoose connection (MONGODB_URI environment variable)
+5. mongoose -> organize our data using Fruit (Model) -> communicate with the database (Create)
+6. express -> new route (fruit) -> renders an HTML form -> send a POST request to '/fruits'
+7. express -> create route (fruit) -> use Fruit model to send data to the database
+8. express -> use express.urlencoded middleware to make our form data available in create
+
+
+// index route (fruits)
+// role -> display all resources from the fruits collection (Database)
+// The core components of our app build 
+// 1. path -> endpoint -> '/fruits'
+// 2. method -> GET
+// 3. DB lookup -> Fruit.find()
+// 4. express response -> res.render() -> render a fruits index page  
+
+// Squad - ACTIVITY 
+// show route (a single fruit)
+// role -> display a single instance of a resource (fruit) from the database
+// 1. path -> '/fruits/:id'
+// 2. method -> GET
+// 3. DB loopup -> Fruit.findById(req.params.id) / Fruit.findOne( {name: "example"})
+// 4. express response -> res.render() -> render information about a single fruit
+
+UI Changes 
+// 1. Link to new and index routes on the landing page
+// 2. Take all fruits on index page and link to show page
+// 3. Add a new empty form to the show page
+
+
+// Prepare for delete
+// 1. install a dependency - method-override (npm)
+// 2. import the middleware into server.js
+// 3. mount the middleware 
+// 4. Work on setting a DELETE form 
+
+// delete route
+// 1. path - '/fruits/:id'
+// 2. method - DELETE 
+// 3. DB operation - Fruit.findByIdAndDelete(req.params.id)
+// 4. express response -> res.redirect('/fruits')
+
+// edit route - GROUP 
+
+
+// update route 

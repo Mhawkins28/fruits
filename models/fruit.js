@@ -10,8 +10,7 @@ const fruitSchema = new mongoose.Schema({
     // add a new key for storing 'color' 
     color: String
     // validators (schema) -> mongoose document
-
-}) // schema class -> 
+}) 
 
 // register the model using the schema
 const Fruit = mongoose.model("Fruit", fruitSchema)

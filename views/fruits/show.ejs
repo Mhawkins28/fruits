@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Show Page</title>
+</head>
+<body>
+    <h1>Fruit Show Page</h1>
+    <h2>Name: <%=fruit.name %> </h2>
+
+    <% if (fruit.isReadyToEat) { %>
+        <p>This fruit is ready to eat!</p>
+      <% } else { %>
+        <p>This fruit is not ready to eat!</p>
+      <% } %>
+
+      <!-- form -> method=POST action=/fruits/<id>?_method=DELETE -->
+        <!-- action attribute - directs the request to the URL path provided -->
+         <!-- set type to method so methodOverride will check the request -->
+          <!-- the endpoint for the request includes a query param string ?_method= -->
+           <!-- the value provided with _method query param is DELETE -->
+            <!-- methodOverride will automatically convert the POST to a DELETE before passing it to the correct routes -->
+    <form method="POST" action="/fruits/<%= fruit._id%>?_method=DELETE">
+        <button type="submit">Delete Fruit</button>
+    </form>
+
+</body>
+</html>
