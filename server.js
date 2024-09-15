@@ -30,7 +30,7 @@ const Fruit = require("./models/fruit");
 // configure view engine
 app.set("view engine", "ejs");
 
-// Middleware 
+// Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(morgan("dev"));
@@ -53,8 +53,8 @@ app.get("/fruits/:id", async (req, res) => {
   try {
     const foundFruit = await Fruit.findById(req.params.id);
     // const variable = await Model.findById()
-    const contextData =  { fruit: foundFruit }
-    res.render("fruits/show", contextData );
+    const contextData = { fruit: foundFruit };
+    res.render("fruits/show", contextData);
   } catch (err) {
     console.log(err);
     res.redirect("/");
@@ -74,7 +74,6 @@ app.get("/fruits", async (req, res) => {
 
 // app.post - POST - /fruits
 app.post("/fruits", async (req, res) => {
-  
   if (req.body.isReadyToEat) {
     req.body.isReadyToEat = true;
   } else {
@@ -102,32 +101,20 @@ app.delete("/fruits/:id", async (req, res) => {
 });
 
 // app.get - EDIT route
-app.get('/fruits/:fruitId/edit', async (req,res)=>{
+app.get("/fruits/:fruitId/edit", async (req, res) => {
   try {
-    const fruitToEdit = await Fruit.findById(req.params.fruitId)
-    
-    // console.log(fruitToEdit)
-    // console.log(req.params)
-    // create a variable for storing the database
-    // test db response 
-    // res -> render the edit page template
-
-    res.render('fruits/edit', {fruit: fruitToEdit})
-
+    const fruitToEdit = await Fruit.findById(req.params.fruitId);
+    res.render("fruits/edit", { fruit: fruitToEdit });
   } catch (err) {
     console.log(err);
     res.redirect(`/`);
   }
-
-})
+});
 
 // app.put - UPDATE route
-app.put('/fruits/:id', async (req,res)=>{
-
-  try{
+app.put("/fruits/:id", async (req, res) => {
+  try {
     // console.log(req.body, 'testing data from form')
-
-    console.log(req.body, 'pre send')
 
     if (req.body.isReadyToEat === "on") {
       req.body.isReadyToEat = true;
@@ -135,19 +122,19 @@ app.put('/fruits/:id', async (req,res)=>{
       req.body.isReadyToEat = false;
     }
 
-    await Fruit.findByIdAndUpdate(req.params.id, req.body, {new: true})
-    // id - the resource _id property for looking the document
-    // req.body - data from the form 
-    // {new: true} option is provided as an optional third argument
-    // console.log(updatedFruit)
+    await Fruit.findByIdAndUpdate(req.params.id, req.body, { new: true });
+
+    // findByIdAndUpdate - breakdown of arguments:
+    // 1. id - the resource _id property for looking the document
+    // 2. req.body - data from the form
+    // 3. {new: true} option is provided as an optional third argument
 
     res.redirect(`/fruits/${req.params.id}`);
-  } catch(err){
+  } catch (err) {
     console.log(err);
     res.redirect(`/fruits/${req.params.id}`);
   }
-})
-
+});
 
 // Server handler
 app.listen(PORT, () => {
@@ -227,4 +214,27 @@ Summary of MEN stack build steps:
         5d. make your database call inside your and log results
         5e. redirect back to fruits index route 
     6. Test your form is routed correctly 
+
+    Build an edit route
+    1. define your app.get() route
+      1a. path - '/fruits/:id/edit'
+      1b. method - GET
+      1c. populate try catch
+      1d. make database call for current fruit - Fruit.findById(req.params.id)
+      1e. create a new template and add a form which includes a correctly structured action string - 
+        - your form's opening tag should look like: <form action="/fruits/<%=fruit._id%>?_method=PUT" method=POST>...</form>
+        - your form body should include inputs tags for all fields you want to edit 
+        - note: your form input should include a value attribute to pre populate your data-
+            <input ...  value="<%= fruit.name %>"/> 
+      1e. render template ('fruits/edit.ejs') and pass context {fruit: foundFruit}
+
+    Build an update route
+    1. define your app.put() route
+      1a. path - '/fruits/:id/'
+      1b. method - PUT
+      1c. test req.body content contains form data from edit page
+      1d. parse any incoming data to match the values expected by the schema (ex: isReadyToEat might send "on" -- needs to be converted to boolean first)
+      1c. populate try catch
+      1d. make database call for current fruit - Fruit.findByIdAndUpdate(req.params.id, req.body, {new:true})
+    2. After data is updated in DB, redirect back to show page for fruit.
 */

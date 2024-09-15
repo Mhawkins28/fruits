@@ -10,7 +10,6 @@ Development steps we took to build the app we have right now
 7. express -> create route (fruit) -> use Fruit model to send data to the database
 8. express -> use express.urlencoded middleware to make our form data available in create
 
-
 // index route (fruits)
 // role -> display all resources from the fruits collection (Database)
 // The core components of our app build 
@@ -51,6 +50,11 @@ UI Changes
 3. DB operation - Fruit.findById(req.params.id)
 4. express response - res.render('fruits/edit', {fruit: foundFruit})
 
-// update route 
+UI Changes 
+// 1. Link to edit view from the show page
 
-2. method - PUT 
+// update route 
+1. path - '/fruits/:id/'
+2. method - processing an update - PUT
+3. DB operation - Fruit.findByIdAndUpdate(req.params.id, req.body, {new: true})
+4. express response - res.redirect(`/fruits/${req.params.id}`)
