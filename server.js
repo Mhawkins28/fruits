@@ -52,7 +52,9 @@ app.get("/fruits/new", (req, res) => {
 app.get("/fruits/:id", async (req, res) => {
   try {
     const foundFruit = await Fruit.findById(req.params.id);
-    res.render("fruits/show", { fruit: foundFruit });
+    // const variable = await Model.findById()
+    const contextData =  { fruit: foundFruit }
+    res.render("fruits/show", contextData );
   } catch (err) {
     console.log(err);
     res.redirect("/");
@@ -72,6 +74,7 @@ app.get("/fruits", async (req, res) => {
 
 // app.post - POST - /fruits
 app.post("/fruits", async (req, res) => {
+  
   if (req.body.isReadyToEat) {
     req.body.isReadyToEat = true;
   } else {
@@ -80,7 +83,7 @@ app.post("/fruits", async (req, res) => {
 
   try {
     await Fruit.create(req.body);
-    res.redirect("/fruits/new?status=success");
+    res.redirect("/fruits");
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -99,8 +102,52 @@ app.delete("/fruits/:id", async (req, res) => {
 });
 
 // app.get - EDIT route
+app.get('/fruits/:fruitId/edit', async (req,res)=>{
+  try {
+    const fruitToEdit = await Fruit.findById(req.params.fruitId)
+    
+    // console.log(fruitToEdit)
+    // console.log(req.params)
+    // create a variable for storing the database
+    // test db response 
+    // res -> render the edit page template
+
+    res.render('fruits/edit', {fruit: fruitToEdit})
+
+  } catch (err) {
+    console.log(err);
+    res.redirect(`/`);
+  }
+
+})
 
 // app.put - UPDATE route
+app.put('/fruits/:id', async (req,res)=>{
+
+  try{
+    // console.log(req.body, 'testing data from form')
+
+    console.log(req.body, 'pre send')
+
+    if (req.body.isReadyToEat === "on") {
+      req.body.isReadyToEat = true;
+    } else {
+      req.body.isReadyToEat = false;
+    }
+
+    await Fruit.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    // id - the resource _id property for looking the document
+    // req.body - data from the form 
+    // {new: true} option is provided as an optional third argument
+    // console.log(updatedFruit)
+
+    res.redirect(`/fruits/${req.params.id}`);
+  } catch(err){
+    console.log(err);
+    res.redirect(`/fruits/${req.params.id}`);
+  }
+})
+
 
 // Server handler
 app.listen(PORT, () => {

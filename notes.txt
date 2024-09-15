@@ -32,7 +32,6 @@ UI Changes
 // 2. Take all fruits on index page and link to show page
 // 3. Add a new empty form to the show page
 
-
 // Prepare for delete
 // 1. install a dependency - method-override (npm)
 // 2. import the middleware into server.js
@@ -46,6 +45,12 @@ UI Changes
 // 4. express response -> res.redirect('/fruits')
 
 // edit route - GROUP 
-
+// role -> display a form that will be used for updating an existing fruit
+1. path - '/fruits/:id/edit'
+2. method - (displaying a template) - GET
+3. DB operation - Fruit.findById(req.params.id)
+4. express response - res.render('fruits/edit', {fruit: foundFruit})
 
 // update route 
+
+2. method - PUT 
