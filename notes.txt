@@ -18,7 +18,6 @@ Development steps we took to build the app we have right now
 // 3. DB lookup -> Fruit.find()
 // 4. express response -> res.render() -> render a fruits index page  
 
-// Squad - ACTIVITY 
 // show route (a single fruit)
 // role -> display a single instance of a resource (fruit) from the database
 // 1. path -> '/fruits/:id'
