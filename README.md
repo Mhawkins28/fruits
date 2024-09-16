@@ -1,7 +1,7 @@
 # MEN Stack CRUD App - Adding Associations
 
 ## About 
-This application will build on the [Fruits CRUD App build](https://pages.git.generalassemb.ly/modular-curriculum-all-courses/men-stack-crud-app-fruits/canvas-landing-pages/seb.html) and implement features found in the [MEN Stack Embedding Related Data](https://pages.git.generalassemb.ly/modular-curriculum-all-courses/men-stack-embedding-related-data-skyrockit/canvas-landing-pages/seb.html) canvas materials
+This application will build on the [Fruits CRUD App build](https://pages.git.generalassemb.ly/modular-curriculum-all-courses/men-stack-crud-app-fruits/canvas-landing-pages/seb.html) and implement features found in the [MEN Stack Embedding Related Data](https://pages.git.generalassemb.ly/modular-curriculum-all-courses/men-stack-embedding-related-data-skyrockit/canvas-landing-pages/seb.html) canvas materials.
 
 ## Features we will start with: 
 1. Express boilerplate
