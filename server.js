@@ -2,6 +2,7 @@
 const express = require("express"); // library module name
 const dotenv = require("dotenv"); // import .env variable library
 const mongoose = require("mongoose");
+const fruitController = require("./controllers/fruits.js")
 
 // middleware that help with request conversion + logging
 const methodOverride = require("method-override");
@@ -37,104 +38,33 @@ app.use(morgan("dev"));
 
 // Landing Page - Home page
 // ROLE - provide information about the app / site
+
 app.get("/", (req, res) => {
   res.render("index");
 });
 
 // New Fruit Route - GET - /fruits/new
 // ROLE -> render a form (new.ejs)
-app.get("/fruits/new", (req, res) => {
-  res.render("fruits/new");
-});
+app.get("/fruits/new", fruitController.getNewForm);
+
+// app.get - Fruit index route - GET - /fruits
+app.get("/fruits", fruitController.getAllFruits)
 
 // Show Route
 // ROLE -> display a single instance of a resource (fruit) from the database
-app.get("/fruits/:id", async (req, res) => {
-  try {
-    const foundFruit = await Fruit.findById(req.params.id);
-    // const variable = await Model.findById()
-    const contextData = { fruit: foundFruit };
-    res.render("fruits/show", contextData);
-  } catch (err) {
-    console.log(err);
-    res.redirect("/");
-  }
-});
-
-// app.get - Fruit index route - GET - /fruits
-app.get("/fruits", async (req, res) => {
-  try {
-    const allFruits = await Fruit.find();
-    res.render("fruits/index", { fruits: allFruits, message: "Hello Friend" });
-  } catch (err) {
-    console.log(err);
-    res.redirect("/");
-  }
-});
+app.get("/fruits/:id", fruitController.getOneFruit );
 
 // app.post - POST - /fruits
-app.post("/fruits", async (req, res) => {
-  if (req.body.isReadyToEat) {
-    req.body.isReadyToEat = true;
-  } else {
-    req.body.isReadyToEat = false;
-  }
-
-  try {
-    await Fruit.create(req.body);
-    res.redirect("/fruits");
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
+app.post("/fruits",fruitController.createFruit );
 
 // app.delete
-app.delete("/fruits/:id", async (req, res) => {
-  try {
-    await Fruit.findByIdAndDelete(req.params.id);
-    // console.log(deletedFruit, "response from db after deletion");
-    res.redirect("/fruits");
-  } catch (err) {
-    console.log(err);
-    res.redirect(`/`);
-  }
-});
+app.delete("/fruits/:id", fruitController.deleteFruit );
 
 // app.get - EDIT route
-app.get("/fruits/:fruitId/edit", async (req, res) => {
-  try {
-    const fruitToEdit = await Fruit.findById(req.params.fruitId);
-    res.render("fruits/edit", { fruit: fruitToEdit });
-  } catch (err) {
-    console.log(err);
-    res.redirect(`/`);
-  }
-});
+app.get("/fruits/:fruitId/edit", fruitController.getEditForm);
 
 // app.put - UPDATE route
-app.put("/fruits/:id", async (req, res) => {
-  try {
-    // console.log(req.body, 'testing data from form')
-
-    if (req.body.isReadyToEat === "on") {
-      req.body.isReadyToEat = true;
-    } else {
-      req.body.isReadyToEat = false;
-    }
-
-    await Fruit.findByIdAndUpdate(req.params.id, req.body, { new: true });
-
-    // findByIdAndUpdate - breakdown of arguments:
-    // 1. id - the resource _id property for looking the document
-    // 2. req.body - data from the form
-    // 3. {new: true} option is provided as an optional third argument
-
-    res.redirect(`/fruits/${req.params.id}`);
-  } catch (err) {
-    console.log(err);
-    res.redirect(`/fruits/${req.params.id}`);
-  }
-});
+app.put("/fruits/:id",fruitController.editFruit);
 
 // Server handler
 app.listen(PORT, () => {
