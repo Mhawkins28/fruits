@@ -57,3 +57,28 @@ UI Changes
 2. method - processing an update - PUT
 3. DB operation - Fruit.findByIdAndUpdate(req.params.id, req.body, {new: true})
 4. express response - res.redirect(`/fruits/${req.params.id}`)
+
+// Lesson Notes Previously in server.js
+
+/*
+LESSON NOTES
+
+TOOL Glossary: 
+
+dotenv.config() - loads contents of .env to set different variables used in the application
+
+mongoose.connect() - creates an active connnection to MongoAtlas when server starts 
+
+app.set() - sets a local property -> communicating to express what library to use for rendering templates
+
+method-override - modifies an incoming request from POST to the specified _method value (example DELETE, or PUT)
+ 
+express.urlencoded() - REQUIRED - decodes the form data sent from the client -> stores the key value pairs in req.body object made available to POST and PUT routes
+
+morgan - OPTIONAL outputs well formatted request info to node terminal ->  GET /fruits/66e364f089decdddff8012e3 304 41.161 ms o
+ 
+res.redirect() - closes open request and tells the browser to navigate to a new location (makes a GET request)
+
+res.render( resource-dir/template-name, { ...data } ) - sends as dynamically rendered HTML page to the browser, can populate HTML with 'context' data provided when called. 
+    note: express assumes all views (templates) live inside of localhost:3000/views/fruits/new so no leading slash is required for a render path argument.
+
