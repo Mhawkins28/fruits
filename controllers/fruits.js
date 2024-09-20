@@ -3,6 +3,7 @@ const Fruit = require("../models/fruit");
 const getAllFruits = async (req, res) => {
   try {
     const allFruits = await Fruit.find();
+    console.log(allFruits)
     res.render("fruits/index", { fruits: allFruits, message: "Hello Friend" });
   } catch (err) {
     console.log(err);
@@ -13,6 +14,7 @@ const getAllFruits = async (req, res) => {
 const getOneFruit = async (req, res) => {
   try {
     const foundFruit = await Fruit.findById(req.params.id);
+    // findOne -> await Fruit.findOne({name: req.params.name})
     // const variable = await Model.findById()
     const contextData = { fruit: foundFruit };
     res.render("fruits/show", contextData);
@@ -35,7 +37,7 @@ const createFruit = async (req, res) => {
 
   try {
     await Fruit.create(req.body);
-    res.redirect("/fruits");
+    res.redirect("/fruits"); // redirect -> GET / address provided 
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

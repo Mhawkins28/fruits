@@ -7,21 +7,50 @@
   </head>
   <body>
     <h1>Fruit Show Page</h1>
-    <h2>Name: <%=fruit.name %></h2>
+    <section>
+      <h2>Name: <%=fruit.name %></h2>
+      <% if (fruit.isReadyToEat) { %>
+      <p>This fruit is ready to eat!</p>
+      <% } else { %>
+      <p>This fruit is not ready to eat!</p>
+      <% } %>
+    </section>
 
-    <% if (fruit.isReadyToEat) { %>
-    <p>This fruit is ready to eat!</p>
-    <% } else { %>
-    <p>This fruit is not ready to eat!</p>
-    <% } %>
+    <section>
+      <% if(fruit.images.length) {%> <% fruit.images.forEach( image => { %>
+      <div style="width: 400px">
+        <img
+          src="<%= image.imageUrl %>"
+          alt="Image of <%=fruit.name%> uploaded by <%= image.uploadedBy  %>"
+          style="width: 100%"
+        />
+        <p>Uploaded by: <%= image.uploadedBy %></p>
+      </div>
+      <% }) %> <% } else { %>
+      <h5>No Images Yet</h5>
+      <% } %>
+    </section>
 
-    <!-- form -> method=POST action=/fruits/<id>?_method=DELETE -->
-    <!-- action attribute - directs the request to the URL path provided -->
-    <!-- set type to method so methodOverride will check the request -->
-    <!-- the endpoint for the request includes a query param string ?_method= -->
-    <!-- the value provided with _method query param is DELETE -->
-    <!-- methodOverride will automatically convert the POST to a DELETE before passing it to the correct routes -->
+    <!-- section > form (post) -> image create route  -->
+    <section>
+      <h2>Upload an image of this fruit!</h2>
+      <form method="POST" action="/fruits/<%=fruit._id%>/images">
+        <div>
+          <!-- label + input for: imageUrl  -->
+          <label for="imageUrl">Uploaded Image (URL) ***</label>
+          <input id="imageUrl" type="text" name="imageUrl" required />
+        </div>
+        <div>
+          <!-- label + input for: uploadedBy  -->
+          <label for="user-upload">Your Name</label>
+          <input id="user-upload" type="text" name="uploadedBy" />
+        </div>
+        <!-- TODO: adding a description field to form and schema -> use the description of the image to set an alt tag for the images  -->
+        <button type="submit">UPLOAD IMAGE</button>
+      </form>
+    </section>
 
+    <hr />
     <form method="POST" action="/fruits/<%= fruit._id%>?_method=DELETE">
       <button type="submit">Delete Fruit</button>
     </form>
@@ -32,3 +61,10 @@
     </section>
   </body>
 </html>
+
+<!-- form -> method=POST action=/fruits/<id>?_method=DELETE -->
+<!-- action attribute - directs the request to the URL path provided -->
+<!-- set type to method so methodOverride will check the request -->
+<!-- the endpoint for the request includes a query param string ?_method= -->
+<!-- the value provided with _method query param is DELETE -->
+<!-- methodOverride will automatically convert the POST to a DELETE before passing it to the correct routes -->
