@@ -7,6 +7,7 @@ const fruitController = require("./controllers/fruits.js");
 // middleware that help with request conversion + logging
 const methodOverride = require("method-override");
 const morgan = require("morgan");
+const path = require("path");
 
 // APP + Configurations
 dotenv.config();
@@ -36,6 +37,8 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(morgan("dev"));
+
+app.use(express.static(path.join(__dirname, "public")));
 
 // Landing Page - Home page
 app.get("/", (req, res) => {

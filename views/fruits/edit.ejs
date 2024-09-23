@@ -6,6 +6,7 @@
     <title>Fruit Edit Page</title>
   </head>
   <body>
+    <%- include('../partials/nav') %>
     <h1>Fruit Edit - <%= fruit.name %></h1>
     <form method="POST" action="/fruits/<%=fruit._id%>?_method=PUT">
       <div>

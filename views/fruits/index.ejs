@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fruits Index Page</title>
+    <link rel="stylesheet" href="/styles/fruits.css">
 </head>
 
 <body>
+  <%- include('../partials/nav') %>
     <h1><%= message %> - All Fruits</h1>
     <ul>
         <!-- EJS iterator -> loops over the fruits context variable - set inside of res.render( {}) -->
@@ -15,7 +17,7 @@
       <% }); %>
     </ul>
 
-    <a href="/">Go Back to Homepage</a> | <a href="/fruits/new">Add new fruit</a>
+  <a href="/fruits/new">Add new fruit</a>
   </body>
   
 </html>

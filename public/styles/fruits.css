@@ -1,0 +1,59 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #d6edf5; 
+  color: #1d647c; 
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #1d647c;
+}
+
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+
+ul li {
+  background-color: #1d647c; 
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+ul li a {
+  color: #d6edf5; 
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+/* Add hover effect to links in fruit list */
+ul li a:hover {
+  color: #f8f9fa; /* Slightly lighter blue on hover */
+}
+
+/* Go back and Add new fruit links */
+a {
+  color: #1d647c;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 0 10px;
+}
+
+a:hover {
+  color: #0056b3; /* Darker blue on hover */
+}

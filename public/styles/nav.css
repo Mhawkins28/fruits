@@ -1,0 +1,20 @@
+nav {
+  background-color: #1d647c;
+  padding: 10px 20px;
+  display: flex; 
+  justify-content: space-evenly;
+  align-items: center;
+  width: 90vw;
+}
+
+nav a {
+  color: #d6edf5; 
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: #0c1e24; 
+  border-bottom: double;
+}
